@@ -9,7 +9,7 @@ from . import Config, create_shortcuts
 def cli() -> None:
     """
     Creates shortcut shell scripts from a configuration file.
-    See https://github.com/seanbreckenridge/shortcuts for more information
+    See https://github.com/purarue/shortcuts for more information
     """
 
 
