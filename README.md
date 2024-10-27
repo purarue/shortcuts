@@ -8,7 +8,7 @@ A similar functionality could be created with aliases, but those aren't on your 
 
 This allows me to create/change short/one liner shell scripts in one place, instead of creating/deleting/linking/copying files around in some bin directory manually.
 
-For a more extensive example, see [my `shortcuts.toml` file](https://sean.fish/d/shortcuts.toml?dark)
+For a more extensive example, see [my `shortcuts.toml` file](https://purarue.xyz/d/shortcuts.toml?dark)
 
 If you edit this in vim, you can put the following line in your configuration, so that `shortcuts create` runs whenever you save the file:
 
