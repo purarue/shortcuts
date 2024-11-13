@@ -8,17 +8,28 @@ A similar functionality could be created with aliases, but those aren't on your 
 
 This allows me to create/change short/one liner shell scripts in one place, instead of creating/deleting/linking/copying files around in some bin directory manually.
 
-For a more extensive example, see [my `shortcuts.toml` file](https://purarue.xyz/d/shortcuts.toml?dark)
+For a more extensive example, see [my `shortcuts.toml` file](https://purarue.xyz/d/shortcuts.toml?redirect)
 
 If you edit this in vim, you can put the following line in your configuration, so that `shortcuts create` runs whenever you save the file:
 
-```
+```vim
 autocmd BufWritePost shortcuts.toml !shortcuts create
+```
+
+or in neovim with lua:
+
+```lua
+vim.api.nvim_create_autocmd("BufWritePost", {
+    command = "!shortcuts create",
+    group = vim.api.nvim_create_augroup("shortcuts", { clear = true }),
+    pattern = { "shortcuts.toml" },
+    desc = "create shortcuts script when I save config file",
+})
 ```
 
 ### Install
 
-Requires python 3.6+
+Requires python 3.8+
 
 `python3 -m pip install git+https://github.com/purarue/shortcuts`
 
