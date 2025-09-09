@@ -7,12 +7,12 @@ command = 'date "+%d-%m-%y" | xclip' # only required option
 # display htop in a new terminal window
 [thtop]
 command = "termite -e htop"
-link = "th" # create a hardlink to thtop called th
+link = "th"                 # create a hardlink to thtop called th
 
 # print current git configuration
 [gitcfg]
 command = "git config --list | cat"
-links = ["gitconfig", "gcfg"] # create multiple links
+links = ["gitconfig", "gcfg"]       # create multiple links
 
 [test-perl]
 shebang = "#!/usr/bin/env perl"

@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 ### Install
 
-Requires python 3.8+
+Requires python 3.10+
 
 `python3 -m pip install git+https://github.com/purarue/shortcuts`
 

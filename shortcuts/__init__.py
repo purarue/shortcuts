@@ -5,13 +5,13 @@ Converts a TOML config file to a directory of shell scripts
 from pathlib import Path
 
 from dataclasses import dataclass, field
-from typing import List, ClassVar, Set, Dict, Any, Optional, Union
+from typing import ClassVar, Any, Optional, Union
 
 import click
 import toml
 
 
-Json = Dict[str, Any]
+Json = dict[str, Any]
 
 DEFAULT_PERMISSIONS = 0o755
 
@@ -40,8 +40,8 @@ class Config:
         """
         Parse a config file, reading the default shebang value and raw shortcut values
         """
-        with open(config_file, "r") as toml_f:
-            blob: Dict[str, Any] = dict(toml.load(toml_f).items())
+        with open(config_file) as toml_f:
+            blob: dict[str, Any] = dict(toml.load(toml_f).items())
         conf = expand_path(config_file)
         assert conf.exists(), f"config file at {conf} doesn't exist"
         short_dir = expand_path(shortcuts_dir)
@@ -71,17 +71,17 @@ class Shortcut:
     name: str
     command: str
     shebang: Optional[str] = None
-    links: List[str] = field(default_factory=list)
+    links: list[str] = field(default_factory=list)
 
-    REQUIRED_KEYS: ClassVar[Set[str]] = set(["command"])
-    ALLOWED_KEYS: ClassVar[Set[str]] = set(["links", "link", "shebang"]) | REQUIRED_KEYS
+    REQUIRED_KEYS: ClassVar[set[str]] = {"command"}
+    ALLOWED_KEYS: ClassVar[set[str]] = {"links", "link", "shebang"} | REQUIRED_KEYS
 
     @classmethod
     def from_blob(cls, name: str, blob: Json) -> "Shortcut":
         """
         Convert a table loaded from TOML into a Shortcut
         """
-        kset: Set[str] = set(blob.keys())
+        kset: set[str] = set(blob.keys())
         for req in cls.REQUIRED_KEYS:
             if req not in kset:
                 assert f"{req} must be in {blob}"
@@ -90,7 +90,7 @@ class Shortcut:
                 assert f"unknown key {key}; allowed keys {cls.ALLOWED_KEYS}"
 
         # combine link string with links array
-        links: List[str] = blob.get("links", [])
+        links: list[str] = blob.get("links", [])
 
         if "link" in blob:
             links.append(blob["link"])
