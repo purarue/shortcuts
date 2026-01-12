@@ -33,7 +33,9 @@ def create(debug: bool, conf: str, shortcuts_dir: str) -> None:
     """
     Create the shell scripts!
     """
-    create_shortcuts(debug, conf, shortcuts_dir)
+    leftover = create_shortcuts(debug, conf, shortcuts_dir)
+    if leftover:
+        click.echo(f"Leftover shortcuts in created directory: {leftover}")
 
 
 if __name__ == "__main__":

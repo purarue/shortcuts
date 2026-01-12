@@ -121,10 +121,19 @@ class Shortcut:
             target_file.chmod(DEFAULT_PERMISSIONS)
 
 
-def create_shortcuts(debug: bool, conf: str, shortcuts_dir: str) -> None:
+def create_shortcuts(debug: bool, conf: str, shortcuts_dir: str) -> set[str]:
     """
     'main' - reads files and creates shortcuts
     """
+    shortcuts_dir = expand_path(shortcuts_dir)
+    already_exists = (
+        {p.name for p in shortcuts_dir.iterdir()} if shortcuts_dir.exists() else set()
+    )
+    created: set[str] = set()
     config = Config.from_file(debug, conf, shortcuts_dir)
     for name, blob in config.raw.items():
-        Shortcut.from_blob(name, blob).create(config)
+        sc = Shortcut.from_blob(name, blob)
+        sc.create(config)
+        created.add(sc.name)
+        created.update(sc.links)
+    return already_exists - created
