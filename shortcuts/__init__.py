@@ -125,7 +125,7 @@ def create_shortcuts(debug: bool, conf: str, shortcuts_dir: str) -> set[str]:
     """
     'main' - reads files and creates shortcuts
     """
-    shortcuts_path= expand_path(shortcuts_dir)
+    shortcuts_path = expand_path(shortcuts_dir)
     already_exists = (
         {p.name for p in shortcuts_path.iterdir()} if shortcuts_path.exists() else set()
     )
