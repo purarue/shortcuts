@@ -5,7 +5,7 @@ Converts a TOML config file to a directory of shell scripts
 from pathlib import Path
 
 from dataclasses import dataclass, field
-from typing import ClassVar, Any, Optional, Union
+from typing import ClassVar, Any
 
 import click
 import toml
@@ -16,7 +16,7 @@ Json = dict[str, Any]
 DEFAULT_PERMISSIONS = 0o755
 
 
-def expand_path(path: Union[Path, str]) -> Path:
+def expand_path(path: Path | str) -> Path:
     """
     Take a path or a string, expand '~' and convert to an absolute path
     """
@@ -70,7 +70,7 @@ class Shortcut:
 
     name: str
     command: str
-    shebang: Optional[str] = None
+    shebang: str | None = None
     links: list[str] = field(default_factory=list)
 
     REQUIRED_KEYS: ClassVar[set[str]] = {"command"}
